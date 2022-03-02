@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dashboard-ingress
+  namespace: kubernetes-dashboard
+spec:
+  rules:
+  #can have multiple hosts such as sub domains or different domains
+    - host: dashboard.com
+      http:
+        paths:
+        #can have multiple paths to direct to differnt services(pods)
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              #internal kubernetes-dasboard services used
+              name: kubernetes-dashboard
+              port:
+                number: 80
+        - path: /v1
+          pathType: Prefix
+          backend:
+            service:
+              #internal kubernetes-dasboard services used
+              name: kubernetes-dashboard
+              port:
+                number: 80
